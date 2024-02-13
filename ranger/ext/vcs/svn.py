@@ -7,9 +7,9 @@ from __future__ import (absolute_import, division, print_function)
 
 from datetime import datetime
 import os
-from xml.etree import ElementTree as etree
 
 from .vcs import Vcs, VcsError
+import defusedxml.ElementTree
 
 
 class SVN(Vcs):
@@ -45,7 +45,7 @@ class SVN(Vcs):
             return None
 
         log = []
-        for entry in etree.fromstring(output).findall('./logentry'):
+        for entry in defusedxml.ElementTree.fromstring(output).findall('./logentry'):
             new = {}
             new['short'] = entry.get('revision')
             new['revid'] = entry.get('revision')
@@ -73,7 +73,7 @@ class SVN(Vcs):
             return None
         if not output:
             return None
-        return etree.fromstring(output).find('./entry/url').text or None
+        return defusedxml.ElementTree.fromstring(output).find('./entry/url').text or None
 
     # Action Interface
 
