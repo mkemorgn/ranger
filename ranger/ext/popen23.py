@@ -18,8 +18,8 @@ if PY3:
     from subprocess import DEVNULL
 else:
     import os
-    # pylint: disable=consider-using-with
-    DEVNULL = open(os.devnull, "wb")
+    with open(os.devnull, "wb") as DEVNULL:
+        pass
 
 
 # COMPAT: Python 2 (and Python <=3.2) subprocess.Popen objects aren't
