@@ -6,7 +6,6 @@ from __future__ import (absolute_import, division, print_function)
 import locale
 import os.path
 from os import stat as os_stat, lstat as os_lstat
-import random
 import re
 from collections import deque
 from time import time
@@ -22,6 +21,7 @@ from ranger.ext.lazy_property import lazy_property
 from ranger.ext.human_readable import human_readable
 from ranger.container.settings import LocalSettings
 from ranger.ext.vcs import Vcs
+import secrets
 
 
 def sort_by_basename(path):
@@ -121,7 +121,7 @@ class Directory(  # pylint: disable=too-many-instance-attributes,too-many-public
         'mtime': lambda path: -(path.stat and path.stat.st_mtime or 1),
         'ctime': lambda path: -(path.stat and path.stat.st_ctime or 1),
         'atime': lambda path: -(path.stat and path.stat.st_atime or 1),
-        'random': lambda path: random.random(),
+        'random': lambda path: secrets.SystemRandom().random(),
         'type': lambda path: path.mimetype or '',
         'extension': lambda path: path.extension or '',
     }
