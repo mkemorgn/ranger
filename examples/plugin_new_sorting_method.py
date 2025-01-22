@@ -5,8 +5,7 @@
 
 from __future__ import (absolute_import, division, print_function)
 
-from random import random
-
 from ranger.container.directory import Directory
+import secrets
 
-Directory.sort_dict['random'] = lambda path: random()
+Directory.sort_dict['random'] = lambda path: secrets.SystemRandom().random()
